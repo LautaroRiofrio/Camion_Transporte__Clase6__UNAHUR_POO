@@ -1,0 +1,161 @@
+object knightRider {
+	method peso() { return 500 }
+	method nivelPeligrosidad() { return 10 }
+	method bultos() = return 1
+	
+	method reaccion(){}
+}
+
+object bumblebee {
+	var transformadoEnAuto = true
+	
+	method peso() { return 800 }
+	method nivelPeligrosidad() { return if (transformadoEnAuto) { 15 } else { 30 }  }
+	method transformar() { transformadoEnAuto = not transformadoEnAuto }
+	
+	method bultos() = return 2
+	
+	method reaccion(){
+		transformadoEnAuto = false
+	}
+}
+
+
+
+object paqueteDeLadrillos{
+	var property cantidadDeLadrillos = 0
+	
+	
+	method peso() = return cantidadDeLadrillos * 2
+	
+	method nivelPeligrosidad() = return 2
+		
+	method bultos(){
+		if(cantidadDeLadrillos > 0 && cantidadDeLadrillos <= 100){
+			return 1
+		} else if (cantidadDeLadrillos.between(101, 300)){
+			return 2
+		} else{
+			return 3
+		}	
+	}
+	
+	method reaccion(){
+		cantidadDeLadrillos = self.cantidadDeLadrillos() + 12
+	}
+	
+}
+
+
+
+object arenaAGranel{
+	var property peso = 0
+	method nivelPeligrosidad() = return 1
+	
+	method bultos() = return 1
+	
+	method reaccion(){
+		peso += 20
+	}
+}
+
+
+object bateriaAntiaerea{
+	var property cargada = false
+	
+	method peso(){
+		if(cargada){
+			return 300
+		} else {
+			return 200
+		}
+	}
+	method nivelPeligrosidad(){
+		if (cargada){
+			return 100
+		} else {
+			return 0
+		}
+	}
+		
+		
+	method bultos(){
+		if (cargada){
+			return 2
+		} else {
+			return 1
+		}
+	}
+	
+	method reaccion(){
+		cargada = true
+	}
+}
+
+object contenedorPortuario{
+	var cosas = []
+	
+	
+	method cargar(cosa){
+		cosas.add(cosa)
+	}
+	method descargar(cosa){
+		cosas.remove(cosa)
+	}
+	
+	method peso(){
+		if (cosas.size() > 0){
+			return cosas.sum( { cosa => cosa.peso() } ) + 100
+		} else {
+			return 100
+		}
+	}
+	
+	method nivelPeligrosidad(){
+		if(cosas.size() > 0){
+			return cosas.max( {cosa => cosa.nivelPeligrosidad()} ).nivelPeligrosidad()
+		} else {
+			return 0
+		}
+	}
+	
+	method bultos(){
+		return cosas.sum( { cosa => cosa.bultos() } ) + 1
+	}
+	
+	method reaccion(){
+		cosas.map( { cosa => cosa.reaccion() } )
+	}
+}
+
+
+object residuosRadioactivos{
+	var property peso = 0
+	method nivelPeligrosidad() = return 200
+	
+	method bultos() = return 1
+	
+	method reaccion(){
+		peso += 15
+	}
+}
+
+object embalajeDeSeguridad{
+	var property envuelve
+	
+	method peso(){
+		return envuelve.peso()
+	}
+	method nivelPeligrosidad(){
+		return envuelve.nivelPeligrosidad()/2
+	}
+	
+	method bultos() = return 2
+		
+	method reaccion(){}	
+}
+
+
+
+
+

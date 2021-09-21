@@ -1,0 +1,101 @@
+import cosas2.*
+
+
+/*
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * 	
+ * 		EN ESTE CASO, LOS TEST DE BULTOS Y CONSECUENCIAS DE CARGA
+ * 		SE PUSIERON EN UN SOLO ARCHIVO, YA QUE SOLO HAY UN ESPACIO DE 
+ * 		ENTREGA PARA CADA TEST. 
+ * 		SIN EMBARGO, LOS TEST SE ENCUENTRAN SEPARADOS 
+ * 		EN EL REPOSITORIO DE GIT HUB
+ * 
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+
+describe "Paquete de ladrillos"{
+	test "ladrillos"{
+		paqueteDeLadrillos.cantidadDeLadrillos(80)
+		
+		assert.equals(160, paqueteDeLadrillos.peso())	
+	}
+}
+
+
+describe "Bateria Antiaerea"{
+	test "bateria antiaerea"{
+		bateriaAntiaerea.cargada(true)
+		assert.equals(300, bateriaAntiaerea.peso() )
+		assert.equals(100, bateriaAntiaerea.nivelPeligrosidad() )
+	}
+}
+
+
+describe "Contenedor portuario"{
+	test "Contenedor portuario"{
+		
+		paqueteDeLadrillos.cantidadDeLadrillos(80)
+		contenedorPortuario.cargar(paqueteDeLadrillos)
+		contenedorPortuario.cargar(bateriaAntiaerea)
+		
+		assert.equals(460, contenedorPortuario.peso() )
+		assert.equals(2,  contenedorPortuario.nivelPeligrosidad() )
+	}
+}
+
+describe "Embalaje de seguridad"{
+	test "Embalaje de seguridad"{
+		residuosRadioactivos.peso(30) 
+		embalajeDeSeguridad.envuelve( residuosRadioactivos)
+
+		assert.equals(30 , embalajeDeSeguridad.peso() )
+		assert.equals(100, embalajeDeSeguridad.nivelPeligrosidad() )
+	}
+}
+
+
+
+
+
+describe "Total de bultos"{
+	test "Ladrillos: Menos de 100"{
+		paqueteDeLadrillos.cantidadDeLadrillos(50)
+		assert.equals(1,paqueteDeLadrillos.bultos()  )
+	}
+	
+	test "Ladrillos: Mas de 100"{
+		paqueteDeLadrillos.cantidadDeLadrillos(150)
+		assert.equals(2,paqueteDeLadrillos.bultos()  )
+	}
+	test "Ladrillos: Mas de 300"{
+		paqueteDeLadrillos.cantidadDeLadrillos(350)
+		assert.equals(3,paqueteDeLadrillos.bultos()  )
+	}
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	test "bateriaAntiaerea: Cargada"{
+		bateriaAntiaerea.cargada(true)
+		assert.equals(2, bateriaAntiaerea.bultos())
+	}
+	
+	test "bateriaAntiaerea: Descargada"{
+		bateriaAntiaerea.cargada(false)
+		assert.equals(1, bateriaAntiaerea.bultos())
+	}
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	test "contenedorPortuario: bultos"{
+		contenedorPortuario.cargar(bumblebee)
+		
+		paqueteDeLadrillos.cantidadDeLadrillos(400)
+		contenedorPortuario.cargar(paqueteDeLadrillos)
+		bateriaAntiaerea.cargada(true)
+		contenedorPortuario.cargar(bateriaAntiaerea)
+		
+		assert.equals(8 , contenedorPortuario.bultos() )
+	}
+	
+}

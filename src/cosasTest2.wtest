@@ -1,0 +1,53 @@
+import cosas2.*
+
+
+
+describe "Paquete de ladrillos"{
+	test "Ladrillos: Menos de 100"{
+		paqueteDeLadrillos.cantidadDeLadrillos(50)
+		assert.equals(1,paqueteDeLadrillos.bultos()  )
+	}
+	
+	test "Ladrillos: Mas de 100"{
+		paqueteDeLadrillos.cantidadDeLadrillos(150)
+		assert.equals(2,paqueteDeLadrillos.bultos()  )
+	}
+	test "Ladrillos: Mas de 300"{
+		paqueteDeLadrillos.cantidadDeLadrillos(350)
+		assert.equals(3,paqueteDeLadrillos.bultos()  )
+	}
+}
+
+
+
+describe "bateria antiaerea"{
+	test "bateriaAntiaerea: Cargada"{
+		bateriaAntiaerea.cargada(true)
+		assert.equals(2, bateriaAntiaerea.bultos())
+	}
+	
+	test "bateriaAntiaerea: Descargada"{
+		bateriaAntiaerea.cargada(false)
+		assert.equals(1, bateriaAntiaerea.bultos())
+	}
+}
+
+
+describe "contenedor portuario"{
+	test "contenedorPortuario: bultos"{
+		contenedorPortuario.cargar(bumblebee)
+		
+		paqueteDeLadrillos.cantidadDeLadrillos(400)
+		contenedorPortuario.cargar(paqueteDeLadrillos)
+		bateriaAntiaerea.cargada(true)
+		contenedorPortuario.cargar(bateriaAntiaerea)
+		
+		assert.equals(8 , contenedorPortuario.bultos() )
+	}
+}
+
+
+
+
+
+
